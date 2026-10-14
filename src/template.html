@@ -1,0 +1,615 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Place Settings</title>
+<meta name="description" content="Four in five IKEA rugs on sale in Britain in 2022 were named after a Danish town. Of the rugs launched since, one in six is. The famous naming rulebook, tested rule by rule against every product name IKEA has sold in Britain since July 2022.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ------------------------------------------------------------------ *
+ * An assembly sheet on birch ply. One ink per kind of name:          *
+ * Swedish place slate, Norwegian place brick, Danish place amber,    *
+ * Finnish place pine, a person plum, an ordinary Swedish word grey.  *
+ * Nothing here is IKEA's; the names are the only thing borrowed.     *
+ * ------------------------------------------------------------------ */
+:root{
+  --ground:#f3efe6; --panel:#fbf9f4; --sunk:#ebe5d8;
+  --ink:#1c1c1a; --ink2:#47463f; --ink3:#86837a; --rule:#d6cfbf; --rule2:#e5dfd2;
+  --SE:#356a9e; --NO:#b0452e; --DK:#c08a1e; --FI:#3f7d5c; --PER:#8e4a7e; --WORD:#6f6c64; --NONE:#cfc8b8;
+  --warn:#b4321f; --ok:#2f6f3f;
+  color-scheme:light dark;
+}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+  --ground:#151514; --panel:#1d1d1b; --sunk:#191917;
+  --ink:#eeebe3; --ink2:#c2beb3; --ink3:#8d897f; --rule:#37352f; --rule2:#2a2925;
+  --SE:#7eaedd; --NO:#e6806a; --DK:#e5b558; --FI:#7cc19a; --PER:#d48dc2; --WORD:#a6a299; --NONE:#3d3b35;
+  --warn:#f0806b; --ok:#7fc98f;
+}}
+:root[data-theme="dark"]{
+  --ground:#151514; --panel:#1d1d1b; --sunk:#191917;
+  --ink:#eeebe3; --ink2:#c2beb3; --ink3:#8d897f; --rule:#37352f; --rule2:#2a2925;
+  --SE:#7eaedd; --NO:#e6806a; --DK:#e5b558; --FI:#7cc19a; --PER:#d48dc2; --WORD:#a6a299; --NONE:#3d3b35;
+  --warn:#f0806b; --ok:#7fc98f;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--ground);color:var(--ink);font:17px/1.6 "Source Serif 4",Georgia,serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+@media(min-width:700px){.wrap{padding:0 28px}}
+h1,h2,h3{font-family:"Familjen Grotesk",system-ui,sans-serif;line-height:1.05;margin:0;font-weight:700;letter-spacing:-.01em}
+.mono,code{font-family:"JetBrains Mono",monospace}
+a{color:inherit;text-decoration-color:var(--ink3);text-underline-offset:3px}
+section{margin-top:76px}
+section h2{font-size:clamp(30px,4.2vw,46px)}
+.lede{font-size:18px;color:var(--ink2);max-width:64ch;margin:12px 0 0}
+p{max-width:68ch}
+.SE{color:var(--SE);font-weight:600}.NO{color:var(--NO);font-weight:600}.DK{color:var(--DK);font-weight:600}
+.FI{color:var(--FI);font-weight:600}.PER{color:var(--PER);font-weight:600}.WORD{color:var(--WORD);font-weight:600}
+.nm{font:600 .86em "Familjen Grotesk",sans-serif;letter-spacing:.06em}
+
+/* hero */
+header{padding:42px 0 6px;display:grid;gap:30px}
+@media(min-width:920px){header{grid-template-columns:1fr 360px;align-items:end}}
+.eyebrow{font:500 12px "JetBrains Mono",monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3)}
+h1{font-size:clamp(56px,10vw,112px);margin-top:6px;letter-spacing:-.03em}
+.finding{font-family:"Familjen Grotesk",sans-serif;font-size:clamp(22px,2.7vw,30px);line-height:1.22;font-weight:500;max-width:30ch;margin:16px 0 0}
+.finding b{font-weight:700}
+.dek{color:var(--ink2);max-width:62ch;margin-top:16px}
+.withheld{border:1px solid var(--warn);color:var(--warn);padding:12px 14px;border-radius:3px;margin-top:18px;font:500 14px "JetBrains Mono",monospace;display:none}
+#waffle{width:100%;max-width:360px}
+.nums{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:28px}
+@media(min-width:820px){.nums{grid-template-columns:repeat(4,1fr)}}
+.nums>div{background:var(--panel);padding:16px 18px}
+.nums .v{font:700 38px/1 "Familjen Grotesk",sans-serif}
+.nums .d{font-size:14px;color:var(--ink2);margin-top:6px;line-height:1.4}
+
+/* cards, charts */
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:18px 18px 14px;margin-top:22px}
+.card h3{font-size:23px}
+.card .sub{font-size:15px;color:var(--ink2);margin:4px 0 0;max-width:74ch}
+svg{display:block;width:100%;height:auto;overflow:visible}
+svg text{font-family:"JetBrains Mono",monospace;font-size:11px;fill:var(--ink3)}
+.tip{min-height:3.2em;font:12.5px/1.5 "JetBrains Mono",monospace;color:var(--ink2);margin-top:8px}
+.verdict{font:500 13px/1.5 "JetBrains Mono",monospace;margin-top:10px;padding:8px 10px;border-radius:3px;background:var(--sunk)}
+.verdict.ok{color:var(--ok)} .verdict.bad{color:var(--warn)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font:12px "JetBrains Mono",monospace;color:var(--ink2);margin-top:10px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.two{display:grid;gap:22px;grid-template-columns:minmax(0,1fr)}
+@media(min-width:900px){.two{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.scwrap{overflow-x:auto;margin-top:6px}
+.scwrap svg{min-width:720px}
+.two .card{margin-top:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.chip{font:500 12.5px "JetBrains Mono",monospace;padding:6px 11px;border-radius:999px;border:1px solid var(--rule);background:var(--panel);color:var(--ink2);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--ground);border-color:var(--ink)}
+.chip:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--SE);outline-offset:2px}
+
+/* rule table */
+.scroller{overflow-x:auto;margin-top:12px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--rule2);vertical-align:middle}
+th{font:400 10.5px "JetBrains Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);white-space:nowrap}
+td.n{font-family:"JetBrains Mono",monospace;font-size:13px;text-align:right;white-space:nowrap}
+td.claim{min-width:230px}
+.badge{display:inline-block;font:600 10.5px "JetBrains Mono",monospace;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;border-radius:2px;white-space:nowrap}
+.b-holds{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}
+.b-minority{background:color-mix(in srgb,var(--DK) 22%,transparent);color:var(--ink)}
+.b-fails{background:color-mix(in srgb,var(--warn) 16%,transparent);color:var(--warn)}
+.b-na{background:var(--sunk);color:var(--ink3)}
+.mini{display:inline-block;width:90px;height:8px;background:var(--sunk);border-radius:1px;vertical-align:middle;position:relative}
+.mini span{position:absolute;left:0;top:0;bottom:0;border-radius:1px}
+.mini b{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink)}
+tr.ctl td{background:color-mix(in srgb,var(--ok) 6%,transparent)}
+
+/* name walls */
+.wall{display:flex;flex-wrap:wrap;gap:4px;margin-top:12px}
+.wall span{font:600 11px/1 "Familjen Grotesk",sans-serif;letter-spacing:.05em;padding:5px 6px 4px;border-radius:2px;border:1px solid var(--rule);background:var(--panel);color:var(--ink2);cursor:default}
+.wall span.k-DK{background:var(--DK);border-color:var(--DK);color:#1c1c1a}
+.wall span.k-NO{background:var(--NO);border-color:var(--NO);color:#fff}
+.wall span.k-SE{background:var(--SE);border-color:var(--SE);color:#fff}
+.wall span.k-FI{background:var(--FI);border-color:var(--FI);color:#fff}
+.wall span.k-PER{background:var(--PER);border-color:var(--PER);color:#fff}
+.wall span.k-WORD{border-color:var(--WORD);color:var(--ink)}
+.wall span.gone{opacity:.55;text-decoration:line-through;text-decoration-thickness:1px}
+.gloss{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:6px 18px;margin-top:14px;font-size:14.5px}
+.gloss div b{font:600 12.5px "Familjen Grotesk",sans-serif;letter-spacing:.05em;margin-right:6px}
+.gloss div{color:var(--ink2)}
+
+/* explorer */
+.search{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.search input{font:500 16px "JetBrains Mono",monospace;padding:9px 12px;border:1px solid var(--rule);border-radius:3px;background:var(--panel);color:var(--ink);min-width:0;flex:1 1 220px;text-transform:uppercase}
+.result{margin-top:14px;display:grid;gap:10px}
+.rcard{border:1px solid var(--rule);border-radius:3px;padding:12px 14px;background:var(--panel)}
+.rcard h4{margin:0;font:700 22px "Familjen Grotesk",sans-serif;letter-spacing:.04em}
+.rcard .meta{font:12.5px/1.6 "JetBrains Mono",monospace;color:var(--ink2);margin-top:4px}
+.rcard .tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.rcard .tags span{font:500 11.5px "JetBrains Mono",monospace;padding:3px 7px;border-radius:2px;background:var(--sunk);color:var(--ink2)}
+.rcard .tags span.on{color:var(--ink);font-weight:600}
+.qstrip{display:flex;gap:2px;margin-top:8px}
+.qstrip i{flex:1;height:10px;border-radius:1px;background:var(--sunk)}
+.qstrip i.on{background:var(--ink2)}
+.quiet{font-size:14px;color:var(--ink3)}
+
+/* calibration */
+.cal td.n{font-size:13px}
+.slider{display:flex;align-items:center;gap:12px;margin-top:12px;font:13px "JetBrains Mono",monospace;color:var(--ink2);flex-wrap:wrap}
+.slider input{flex:1 1 200px}
+
+/* methods */
+.methods{background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:22px 20px;margin-top:22px}
+.methods h3{font-size:21px;margin-top:28px}
+.methods h3:first-child{margin-top:0}
+.methods li{margin-bottom:8px;color:var(--ink2);max-width:80ch;font-size:15.5px}
+.methods li b{color:var(--ink)}
+footer{margin:70px 0 50px;color:var(--ink3);font-size:14px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div>
+    <div class="eyebrow">Product names &middot; place names &middot; Britain, July 2022 to October 2026</div>
+    <h1>Place Settings</h1>
+    <p class="finding" id="finding">Four in five IKEA rugs on sale in 2022 were named after <b>a Danish town</b>. Of the rugs launched since, one in six is.</p>
+    <div class="withheld" id="withheld"></div>
+    <p class="dek">Everybody knows how IKEA names things: beds after Norwegian places, rugs after Danish ones, sofas after Swedish towns, curtains after girls, desks after boys. The rulebook is repeated everywhere and checked almost nowhere. Below, every product name IKEA has sold in Britain since July 2022 (<span id="nNames">4,064</span> of them, read from the company's own sitemaps and the Internet Archive's copies of them) is put through a gazetteer, a population register and a dictionary, rule by rule. Most of the rules were real. Several are being quietly retired.</p>
+  </div>
+  <svg id="waffle" viewBox="0 0 360 250" role="img" aria-label="Rugs on sale in 2022 and rugs launched since, one square per name, coloured by whether the name is a Danish place"></svg>
+</header>
+<div class="nums" id="nums"></div>
+
+<section id="rulebook">
+  <h2>The rulebook, rule by rule</h2>
+  <p class="lede">Fifteen claims, in the form they are usually repeated, tested on the names on sale today. A rule has to beat the background: the share of <em>every other</em> name in the range that happens to come from the same source. The p value asks how often a random set of names of the same size would score as high; it is recomputed in your browser from 2,000 shuffles.</p>
+  <div class="card">
+    <div class="scroller"><table id="ruleTable"></table></div>
+    <div class="legend"><span><span class="badge b-holds">holds</span> at least half the names, beating chance</span><span><span class="badge b-minority">minority</span> real, but most names break it</span><span><span class="badge b-fails">fails</span> no better than the background</span></div>
+    <p class="sub" style="margin-top:12px"><b>Rival</b> is the strongest other source for the same names, in red when it comes within a fifth of the claimed one: a category that is as Swedish as it is Norwegian cannot pass as "Norwegian". <b>2010</b> is Lars Petrus's hand-labelled IKEA Dictionary, a second opinion on the names old enough to be in it. <b>Wikidata</b> is a second gazetteer, compiled independently of the first; it covers Norway and Denmark well and Sweden poorly (see the instrument, below).</p>
+  </div>
+</section>
+
+<section id="change">
+  <h2>Which rules are being retired</h2>
+  <p class="lede">Split every name by when it first appears in Britain: on sale at some point in 2022 (the first year the archive covers, so these could be decades old), or launched since. Same instruments, same rules, two cohorts.</p>
+  <div class="card">
+    <h3>Rule followed, 2022 range against launches since</h3>
+    <p class="sub">Each row is one rule; on a narrow screen, scroll the chart sideways. The hollow dot is the 2022 range, the solid dot the names launched since January 2023. Green rows are the controls: rules nothing suggests IKEA changed.</p>
+    <div class="scwrap" id="dumbbell"></div>
+    <div class="tip" id="dbTip">Hover or tap a row.</div>
+    <div class="verdict" id="ctlVerdict"></div>
+  </div>
+  <div class="card">
+    <h3>Rugs on sale, quarter by quarter</h3>
+    <p class="sub">Every rug name on sale in each quarter, by what kind of name it is. Pale bars are quarters whose captured sitemaps hold under 60% as many products as the fullest quarter, because the archive missed files or the range was smaller; read their mix, not their counts.</p>
+    <div class="scwrap"><svg id="rugQ" viewBox="0 0 960 300"></svg></div>
+    <div class="legend" id="rugLegend"></div>
+    <div class="tip" id="rqTip">Hover or tap a quarter.</div>
+  </div>
+  <div class="card">
+    <h3>Does the rug result survive being cut up?</h3>
+    <p class="sub">The split above was fixed before looking: everything on sale in 2022 against everything launched since. These are the obvious ways it could be an accident.</p>
+    <div class="scroller"><table id="robust"></table></div>
+  </div>
+</section>
+
+<section id="replaced">
+  <h2>What the rugs are called now</h2>
+  <p class="lede">The old rugs were Danish towns: TOFTLUND, SINDAL, TVERSTED, KØGE. The new ones are Swedish nouns, and a run of them come from one vocabulary: railways, roads and getting about.</p>
+  <div class="card">
+    <h3>Every rug name, old and new</h3>
+    <div class="chips" id="rugChips"></div>
+    <div class="wall" id="rugWall"></div>
+    <p class="sub" id="rugChurn" style="margin-top:12px"></p>
+    <div class="legend"><span><i style="background:var(--DK)"></i>Danish place</span><span><i style="background:var(--SE)"></i>Swedish place</span><span><i style="background:var(--NO)"></i>Norwegian place</span><span><i style="border:1px solid var(--WORD)"></i>ordinary Swedish word</span><span><i style="border:1px solid var(--rule)"></i>none of these</span><span style="text-decoration:line-through">no longer sold</span></div>
+  </div>
+  <div class="card">
+    <h3>A few of the new ones, translated</h3>
+    <div class="gloss">
+      <div><b>JÄRNVÄG</b>railway</div><div><b>LOKALTÅG</b>local train</div><div><b>TIDTABELL</b>timetable</div>
+      <div><b>TÅGSPÅR</b>railway track</div><div><b>LOKBYTE</b>change of locomotive</div><div><b>VÄXELFEL</b>points failure</div>
+      <div><b>VÄGSKYLT</b>road sign</div><div><b>BETALVÄG</b>toll road</div><div><b>VÄNDPLATS</b>turning place</div>
+      <div><b>TURISTVÄG</b>tourist route</div><div><b>TELEGRAFLINJE</b>telegraph line</div><div><b>TORGPLATS</b>market square</div>
+      <div><b>HOTELLRUM</b>hotel room</div><div><b>KONTANTER</b>cash</div><div><b>BREVBÄRARE</b>postman</div>
+    </div>
+    <p class="sub" style="margin-top:14px">Translations are this page's own. The same move shows up elsewhere: new curtains and bedlinen are moths, wildflowers and folk dances; new desks are sports terms. Use the search below to look any of them up.</p>
+  </div>
+</section>
+
+<section id="instrument">
+  <h2>The instrument</h2>
+  <p class="lede">Each yes or no above comes from matching a name, letter for letter, against a list. Before any of it was trusted, every list was run over the 1,362 names in Lars Petrus's hand-labelled IKEA Dictionary (about 2010), where a person had already decided what each name is. That gives each instrument a catch rate on real places or people, and a false-alarm rate on ordinary words.</p>
+  <div class="two">
+    <div class="card">
+      <h3>Place lists</h3>
+      <p class="sub">Catch rate on Petrus's places in each country, and how often each list calls one of his ordinary Swedish words a place.</p>
+      <div class="scroller"><table class="cal" id="calPlaces"></table></div>
+      <div class="verdict" id="calNote"></div>
+    </div>
+    <div class="card">
+      <h3>The name register</h3>
+      <p class="sub">Statistics Sweden lists every first name at least two people go by. At two bearers almost anything is somebody's name. Slide the threshold; the page used 10, fixed before any furniture was tested.</p>
+      <div class="slider"><span>at least</span><input type="range" id="thr" min="0" max="12" step="1" value="3" aria-label="minimum number of bearers"><span id="thrV">10 bearers</span></div>
+      <div class="scroller"><table class="cal" id="calNames"></table></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Norway has a place called everything</h3>
+    <p class="sub">GeoNames knows <span id="noAny">362,144</span> distinct Norwegian names, against <span id="seAny">68,839</span> Swedish: Norway's national mapping agency fed in every farm, hill, bog and skerry. Matched against every feature, <span id="noFP">10%</span> of Petrus's ordinary Swedish words turn out to be somewhere in Norway (MALM, IKEA's best-known bed, is a Norwegian village; Petrus says it is the Swedish word for ore). Matched against populated places only, <span id="noFP2">2%</span> are. Every place figure on this page uses populated places.</p>
+  </div>
+</section>
+
+<section id="explore">
+  <h2>Look a name up</h2>
+  <p class="lede">Any of the <span id="nNames2">4,064</span> names, with when it was on sale in Britain and what each instrument says it is.</p>
+  <div class="card">
+    <div class="search"><input id="q" placeholder="e.g. HEMNES, MALM, KÖGE, JÄRNVÄG" autocomplete="off" spellcheck="false" aria-label="search IKEA names"></div>
+    <div class="chips" id="eg"></div>
+    <div class="result" id="res"><p class="quiet">Type at least two letters.</p></div>
+  </div>
+</section>
+
+<section id="methods">
+  <h2>Methods</h2>
+  <div class="methods">
+    <h3>Sources</h3>
+    <ul id="srcList">
+      <li><b>IKEA en-GB product sitemaps</b>, <code>ikea.com/sitemaps/prod-en-GB_1..6.xml</code>, read 2026-10-13: 28,699 product URLs. Each URL slug carries the product name, an English description and the article number. Facts about what is on sale; no IKEA text or image is reproduced.</li>
+      <li><b>The same sitemaps as captured by the Internet Archive's Wayback Machine</b>, July 2022 to October 2026, one capture of each file per quarter. The archive has nothing earlier: IKEA's product sitemaps were first captured in July 2022.</li>
+      <li><b>GeoNames</b> country dumps for Sweden, Norway, Denmark and Finland (CC BY 4.0).</li>
+      <li><b>Wikidata</b>: villages, hamlets, towns, cities, settlements, farms and Danish parishes in the four countries (CC0).</li>
+      <li><b>Statistics Sweden (SCB)</b>, first names people go by (<i>tilltalsnamn</i>), with at least two bearers, 31 December 2022 (open data, attribution).</li>
+      <li><b>SALDO</b>, Språkbanken Text, University of Gothenburg: a lexicon of modern Swedish with a "kind of" link for each sense (CC BY 4.0).</li>
+      <li><b>The IKEA Dictionary</b> by Lars Petrus, <a href="https://lar5.com/ikea/">lar5.com/ikea</a>, about 2010: 1,362 names hand-labelled as word, boy, girl or place. The site states no licence, so only each name's label is used here, never the definitions.</li>
+      <li><b>The rulebook</b> as usually repeated: Quartz (2017), reprinted by Mental Floss and others; Wikipedia's IKEA article for the short form.</li>
+    </ul>
+    <h3>What was measured</h3>
+    <ul>
+      <li><b>One name, one category.</b> A name's category is the commonest product type over the articles that carry it alone; names that only ever appear inside combinations use the articles they head. A door is part of what it hangs on: doors sold with the PAX frame are wardrobes, with BILLY bookcases, the rest kitchen fronts.</li>
+      <li><b>One spelling.</b> IKEA's URLs fold Ä to AE, Ö to OE and Å to A. Every list was folded the same way, so a match is a match in one shared spelling. Å cannot be put back, so a name no source recognised is shown with a reconstructed spelling, marked with an asterisk in the search.</li>
+      <li><b>Cohorts.</b> A name is "2022" if it was on sale at any point from July to December 2022, otherwise it belongs to the year it first appears. Taking all of 2022 as the baseline stops a sitemap file the archive happened to miss in July from making an old name look new in October.</li>
+      <li><b>Two measures, never averaged.</b> Measure A is a place gazetteer or the name register: is this name a place or a person? Measure B is the dictionary: is it an ordinary Swedish word? They fail in different ways and are reported side by side.</li>
+    </ul>
+    <h3>The control, and what it showed</h3>
+    <ul id="ctlList"></ul>
+    <h3>What this does not say</h3>
+    <ul>
+      <li>It does not say when IKEA changed policy, or that anyone decided to. It says the names launched since 2023 follow some rules much less often than the names on sale in 2022. A rule can fade because the products that carried it were discontinued and their replacements were named by a different team, with no decision at all.</li>
+      <li>It does not date the 2022 names. Those are a floor: any of them could be forty years old.</li>
+      <li>It covers Britain only. IKEA uses the same names everywhere, but not every product is sold everywhere.</li>
+      <li>A name that matches no list is not proven to be anything. "None of these" includes coinages, compounds the dictionary lacks, species names and places too small for any list.</li>
+      <li>The categories are this page's, inferred from English product descriptions, not IKEA's own.</li>
+    </ul>
+    <h3>What failed</h3>
+    <ul>
+      <li><b>The 2010 dictionary as a time axis.</b> It looked like a free snapshot of 2010. It is not a sample: Petrus wrote down the names he could explain, so his names are far more often recognisable words and places than IKEA's were. Compared with today's range it shows a decline that is partly his selection. It is used only as a per-name second opinion and a calibration set.</li>
+      <li><b>Splitting compounds.</b> The obvious fix for the dictionary missing compound words (HUSSPARV, house sparrow) is to accept any name that ends in a known noun. On Petrus's labels that rule calls 92% of words words, but also 51% of real places, because Scandinavian place names are compounds too: BERGSVIKEN is "the mountain's bay". It was dropped. The cost is that measure B is silent on curtains, beds and lighting, whose new names are mostly compounds it cannot see.</li>
+      <li><b>Denmark's own place-name service.</b> Danmarks Adressers Web API, the first choice for a Danish second opinion, answered every request with HTTP 410 Gone. It has been retired. Wikidata stands in.</li>
+      <li><b>Wikidata for Sweden.</b> It catches only <span id="wdSE">20%</span> of Petrus's Swedish places (against <span id="wdDK">95%</span> of his Danish ones), so it cannot check the Swedish rules. It is shown, not used, for those.</li>
+      <li><b>Archived category pages.</b> The Wayback Machine has IKEA's rug listing pages from 2019 on, but those pages load their products by script and a capture holds only the first screenful. The sitemaps were used instead; they list everything but start in 2022.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>Built 13 October 2026. Every number on this page is computed in your browser from the names shipped inside it; nothing is fetched while you read except the visit count. Not affiliated with IKEA.</footer>
+</div>
+
+<script>
+const DATA = __PAYLOAD__;
+
+/* ---------- decode ---------- */
+function dec(b64, T){const s=atob(b64),u=new Uint8Array(s.length);for(let i=0;i<s.length;i++)u[i]=s.charCodeAt(i);return new T(u.buffer);}
+const IK={name:DATA.ikea.name.split("|"),theme:DATA.ikea.theme.split("|"),cat:dec(DATA.ikea.cat,Uint8Array),coh:dec(DATA.ikea.cohort,Uint8Array),
+  q:dec(DATA.ikea.q,Uint32Array),flag:dec(DATA.ikea.flag,Uint32Array),lar5:dec(DATA.ikea.lar5,Uint8Array),
+  women:dec(DATA.ikea.women,Uint32Array),men:dec(DATA.ikea.men,Uint32Array)};
+const DI={name:DATA.dict.name.split("|"),lar5:dec(DATA.dict.lar5,Uint8Array),flag:dec(DATA.dict.flag,Uint32Array),
+  women:dec(DATA.dict.women,Uint32Array),men:dec(DATA.dict.men,Uint32Array)};
+const N=IK.name.length, CATS=DATA.cats, Q=DATA.quarters;
+const B={SE_P:1,NO_P:2,DK_P:4,FI_P:8,SE_any:16,NO_any:32,DK_any:64,FI_any:128,SE_wd:256,NO_wd:512,DK_wd:1024,FI_wd:2048,
+  boy:1<<12,girl:1<<13,isl:1<<14,water:1<<15,word:1<<16,guess:1<<17,live:1<<18,mat:1<<19};
+const LAR={0:"not in the 2010 dictionary",1:"a Swedish word",2:"a boy's name",3:"a girl's name",4:"a Swedish place",5:"a Norwegian place",6:"a Danish place",7:"a Finnish place",8:"something else",9:"unexplained"};
+const CATLAB={bed:"beds",wardrobe:"wardrobes",hall:"hall furniture",rug:"rugs and door mats",sofa:"sofas and armchairs",dining:"dining tables",chair:"chairs and stools",desk:"desks and office chairs",bookcase:"bookcases and shelving",curtain:"curtains, blinds, fabric",bed_textile:"bedlinen",cushion:"cushions and throws",bathroom:"bathroom",garden:"garden and outdoor",lighting:"lighting",kitchen:"kitchens and fronts",cookware:"cookware and tableware",decoration:"decoration",storage:"storage",table_other:"coffee and side tables",children:"children's",mattress:"mattresses",bedside:"bedside tables",other:"other"};
+const fmt=n=>n.toLocaleString("en-GB"), pct=x=>(x*100).toFixed(0)+"%";
+const has=(i,b)=>(IK.flag[i]&b)!==0;
+const live=i=>has(i,B.live);
+const catOf=i=>CATS[IK.cat[i]];
+
+/* the rules, as usually repeated */
+const RULES=[
+ {id:"beds",claim:"Beds are named after Norwegian places",cats:["bed"],bit:B.NO_P,src:"Norwegian place",lar:5,wd:B.NO_wd},
+ {id:"wardrobes",claim:"Wardrobes are named after Norwegian places",cats:["wardrobe"],bit:B.NO_P,src:"Norwegian place",lar:5,wd:B.NO_wd},
+ {id:"hall",claim:"Hall furniture is named after Norwegian places",cats:["hall"],bit:B.NO_P,src:"Norwegian place",lar:5,wd:B.NO_wd},
+ {id:"rugs",claim:"Rugs are named after Danish places",cats:["rug"],bit:B.DK_P,src:"Danish place",lar:6,wd:B.DK_wd},
+ {id:"sofas",claim:"Sofas and armchairs are named after Swedish places",cats:["sofa"],bit:B.SE_P,src:"Swedish place",lar:4,wd:B.SE_wd,ctl:true},
+ {id:"dining",claim:"Dining tables are named after Swedish places",cats:["dining"],bit:B.SE_P,src:"Swedish place",lar:4,wd:B.SE_wd},
+ {id:"dining_fi",claim:"Dining tables are named after Finnish places",cats:["dining"],bit:B.FI_P,src:"Finnish place",lar:7,wd:B.FI_wd},
+ {id:"chairs_pl",claim:"Chairs are named after Swedish places",cats:["chair"],bit:B.SE_P,src:"Swedish place",lar:4,wd:B.SE_wd},
+ {id:"chairs_bn",claim:"Chairs are named after boys",cats:["chair"],bit:B.boy,src:"boy's name",lar:2},
+ {id:"desks",claim:"Desks and office chairs are named after boys",cats:["desk"],bit:B.boy,src:"boy's name",lar:2},
+ {id:"bookcases",claim:"Bookcases are named after boys",cats:["bookcase"],bit:B.boy,src:"boy's name",lar:2},
+ {id:"curtains",claim:"Fabrics and curtains are named after girls",cats:["curtain"],bit:B.girl,src:"girl's name",lar:3},
+ {id:"bathroom",claim:"Bathroom things are named after Swedish lakes and waters",cats:["bathroom"],bit:B.water,src:"Swedish water"},
+ {id:"garden",claim:"Garden furniture is named after Scandinavian islands",cats:["garden"],bit:B.isl,src:"island",ctl:true},
+ {id:"lighting",claim:"Lighting is named after Swedish places (among much else)",cats:["lighting"],bit:B.SE_P,src:"Swedish place",lar:4,wd:B.SE_wd},
+];
+const RIVALS=[["Swedish place",B.SE_P],["Norwegian place",B.NO_P],["Danish place",B.DK_P],["Finnish place",B.FI_P],["boy's name",B.boy],["girl's name",B.girl],["island",B.isl],["Swedish water",B.water]];
+
+/* deterministic RNG so the p values are the same on every load */
+function rng(seed){let s=seed>>>0;return()=>{s=(s+0x6D2B79F5)>>>0;let t=s;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296;};}
+
+function rate(idx,bit){if(!idx.length)return NaN;let h=0;for(const i of idx)if(IK.flag[i]&bit)h++;return h/idx.length;}
+function count(idx,bit){let h=0;for(const i of idx)if(IK.flag[i]&bit)h++;return h;}
+
+/* ---------- today's range ---------- */
+const LIVE=[...Array(N).keys()].filter(live);
+function ruleToday(r){
+  const inside=LIVE.filter(i=>r.cats.includes(catOf(i))), outside=LIVE.filter(i=>!r.cats.includes(catOf(i)));
+  const h=count(inside,r.bit), hit=h/inside.length, base=rate(outside,r.bit);
+  // permutation: random sets of the same size drawn from the whole live range
+  const pool=Int32Array.from(LIVE), R=rng(20261013+r.id.length*97), k=inside.length; let ge=0;
+  const ITER=2000;
+  for(let it=0;it<ITER;it++){
+    let c=0;
+    for(let j=0;j<k;j++){const m=j+Math.floor(R()*(pool.length-j));const t=pool[j];pool[j]=pool[m];pool[m]=t;if(IK.flag[pool[j]]&r.bit)c++;}
+    if(c>=h)ge++;
+  }
+  const p=(ge+1)/(ITER+1);
+  let rival=null,rr=-1;for(const [lab,b] of RIVALS){if(b===r.bit)continue;const x=rate(inside,b);if(x>rr){rr=x;rival=lab;}}
+  const lar=inside.filter(i=>IK.lar5[i]>0), larHit=r.lar?lar.filter(i=>IK.lar5[i]===r.lar).length:null;
+  const wd=r.wd?rate(inside,r.wd):null;
+  const verdict=p>=0.01?"fails":hit>=0.5?"holds":"minority";
+  return {n:inside.length,h,hit,base,lift:hit/base,p,rival,rr,larN:lar.length,larHit,wd,verdict};
+}
+
+/* ---------- cohorts ---------- */
+function cohortIdx(cats,newer){const out=[];for(let i=0;i<N;i++){if(!cats.includes(catOf(i)))continue;if((IK.coh[i]>0)===newer)out.push(i);}return out;}
+function rulePeriod(r){
+  const o=cohortIdx(r.cats,false), n=cohortIdx(r.cats,true);
+  const ho=count(o,r.bit), hn=count(n,r.bit), d=hn/n.length-ho/o.length;
+  // two-sided permutation of cohort labels within the category
+  const all=Int32Array.from(o.concat(n)), R=rng(4242+r.id.length*31), tot=ho+hn; let ge=0; const ITER=2000;
+  for(let it=0;it<ITER;it++){
+    let c=0;
+    for(let j=0;j<n.length;j++){const m=j+Math.floor(R()*(all.length-j));const t=all[j];all[j]=all[m];all[m]=t;if(IK.flag[all[j]]&r.bit)c++;}
+    const dd=c/n.length-(tot-c)/o.length; if(Math.abs(dd)>=Math.abs(d)-1e-12)ge++;
+  }
+  return {o:o.length,n:n.length,ro:ho/o.length,rn:hn/n.length,d,p:(ge+1)/(ITER+1),
+    wo:rate(o,B.word),wn:rate(n,B.word)};
+}
+
+const TODAY={}, PERIOD={};
+for(const r of RULES){TODAY[r.id]=ruleToday(r);PERIOD[r.id]=rulePeriod(r);}
+
+/* ---------- the control ---------- */
+function controls(){
+  const out=[];
+  for(const id of ["sofas","garden"]){const P=PERIOD[id];out.push({ok:Math.abs(P.d)<=0.10,txt:`${RULES.find(r=>r.id===id).claim}: ${pct(P.ro)} of the 2022 range, ${pct(P.rn)} of launches since (${P.d>=0?"+":""}${(P.d*100).toFixed(0)} points).`});}
+  const nonRugOld=[],nonRugNew=[];for(let i=0;i<N;i++){if(catOf(i)==="rug")continue;(IK.coh[i]>0?nonRugNew:nonRugOld).push(i);}
+  const a=rate(nonRugOld,B.DK_P), b=rate(nonRugNew,B.DK_P);
+  out.push({ok:a<0.02&&b<0.02,txt:`Danish place names outside rugs, the background the rug rule is measured against: ${(a*100).toFixed(1)}% of the 2022 range, ${(b*100).toFixed(1)}% of launches since.`});
+  const wOld=[],wNew=[];for(let i=0;i<N;i++){if(!has(i,B.word))continue;(IK.coh[i]>0?wNew:wOld).push(i);}
+  const fa=rate(wOld,B.DK_P|B.NO_P|B.SE_P|B.FI_P), fb=rate(wNew,B.DK_P|B.NO_P|B.SE_P|B.FI_P);
+  out.push({ok:Math.abs(fa-fb)<=0.05,txt:`False alarms: names that are ordinary Swedish words but still match a place list, ${pct(fa)} of the 2022 words and ${pct(fb)} of the new ones. If new names were simply harder to match by chance, this would differ.`});
+  return out;
+}
+const CTL=controls(), CTL_OK=CTL.every(c=>c.ok);
+
+/* ---------- hero ---------- */
+const RUG=PERIOD.rugs;
+document.getElementById("nNames").textContent=fmt(N);
+document.getElementById("nNames2").textContent=fmt(N);
+if(!CTL_OK||!(RUG.ro>RUG.rn)){
+  const w=document.getElementById("withheld");w.style.display="block";
+  w.textContent="Withheld: "+(CTL_OK?"the rug figures no longer show a fall.":"a control drifted, so the headline is not reported. See the control under Methods.");
+  document.getElementById("finding").style.display="none";
+}else{
+  const frac=x=>{const f=[[1,1],[4,5],[3,4],[2,3],[3,5],[1,2],[2,5],[1,3],[1,4],[1,5],[1,6],[1,7],[1,8],[1,10]];let best=f[0],e=9;for(const [a,b] of f){const d=Math.abs(a/b-x);if(d<e){e=d;best=[a,b];}}return best;};
+  const W=["no","one","two","three","four","five","six","seven","eight","nine","ten"];
+  const [a,b]=frac(RUG.ro),[c,d]=frac(RUG.rn);
+  const cap=s=>s[0].toUpperCase()+s.slice(1);
+  document.getElementById("finding").innerHTML=`${cap(W[a])} in ${W[b]} IKEA rugs on sale in 2022 were named after <b>a Danish town</b>. Of the rugs launched since, ${W[c]} in ${W[d]} is.`;
+}
+document.getElementById("nums").innerHTML=[
+  [pct(RUG.ro),`of the ${RUG.o} rug names on sale in 2022 are Danish places`],
+  [pct(RUG.rn),`of the ${RUG.n} rug names launched since`],
+  [`${pct(PERIOD.sofas.ro)} → ${pct(PERIOD.sofas.rn)}`,"sofas named after Swedish places, the same two cohorts: the control"],
+  [fmt(N),`names sold in Britain since July 2022, ${fmt(LIVE.length)} of them on sale today`],
+].map(([v,d])=>`<div><div class="v">${v}</div><div class="d">${d}</div></div>`).join("");
+
+/* waffle: one square per rug name */
+(function(){
+  const svg=document.getElementById("waffle"), S=12, G=2, COLS=24;
+  const kind=i=>has(i,B.DK_P)?"var(--DK)":has(i,B.SE_P)?"var(--SE)":has(i,B.NO_P)?"var(--NO)":has(i,B.word)?"var(--WORD)":"var(--NONE)";
+  const groups=[["on sale in 2022",cohortIdx(["rug"],false)],["launched since",cohortIdx(["rug"],true)]];
+  let y=14, h="";
+  for(const [lab,idx] of groups){
+    idx.sort((a,b)=>(has(b,B.DK_P)-has(a,B.DK_P))||(has(b,B.word)-has(a,B.word)));
+    const d=idx.filter(i=>has(i,B.DK_P)).length;
+    h+=`<text x="0" y="${y}">${lab}: ${d} of ${idx.length} Danish</text>`;y+=8;
+    idx.forEach((i,k)=>{const x=(k%COLS)*(S+G),yy=y+Math.floor(k/COLS)*(S+G);h+=`<rect x="${x}" y="${yy}" width="${S}" height="${S}" rx="1.5" fill="${kind(i)}"><title>${IK.name[i]}</title></rect>`;});
+    y+=Math.ceil(idx.length/COLS)*(S+G)+22;
+  }
+  svg.setAttribute("viewBox",`0 0 ${COLS*(S+G)} ${y-12}`);svg.innerHTML=h;
+})();
+
+/* ---------- rule table ---------- */
+(function(){
+  const t=document.getElementById("ruleTable");
+  let h=`<tr><th>Claim</th><th>Verdict</th><th style="text-align:right">Names</th><th style="text-align:right">Follow it</th><th style="text-align:right">Background</th><th style="text-align:right">p</th><th>Rival</th><th style="text-align:right">2010</th><th style="text-align:right">Wikidata</th></tr>`;
+  for(const r of RULES){
+    const T=TODAY[r.id];
+    const rivalNote=T.rr>=0.8*T.hit&&T.rr>0.05?`<b style="color:var(--warn)">${T.rival} ${pct(T.rr)}</b>`:`<span style="color:var(--ink3)">${T.rival} ${pct(T.rr)}</span>`;
+    h+=`<tr${r.ctl?' class="ctl"':''}><td class="claim">${r.claim}${r.ctl?' <span class="quiet">(control)</span>':''}</td>
+      <td><span class="badge b-${T.verdict}">${T.verdict}</span></td>
+      <td class="n">${T.n}</td>
+      <td class="n">${pct(T.hit)} <span class="mini"><span style="width:${T.hit*100}%;background:var(--ink2)"></span><b style="left:${Math.min(100,T.base*100)}%"></b></span></td>
+      <td class="n">${(T.base*100).toFixed(1)}%</td>
+      <td class="n">${T.p<0.001?"&lt;0.001":T.p.toFixed(3)}</td>
+      <td style="font:400 12.5px 'JetBrains Mono',monospace;white-space:nowrap">${rivalNote}</td>
+      <td class="n">${r.lar?`${T.larHit}/${T.larN}`:"–"}</td>
+      <td class="n">${r.wd!=null&&r.wd?pct(T.wd):"–"}</td></tr>`;
+  }
+  t.innerHTML=h;
+})();
+
+/* ---------- dumbbell ---------- */
+(function(){
+  const host=document.getElementById("dumbbell"), W=960, L=420, R=30, row=30, top=28;
+  const H=top+RULES.length*row+10, x=v=>L+(W-L-R)*v;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Share of names following each rule, 2022 range against launches since">`;
+  for(const v of [0,.25,.5,.75,1])s+=`<line x1="${x(v)}" x2="${x(v)}" y1="${top-8}" y2="${H-6}" stroke="var(--rule2)"/><text x="${x(v)}" y="${top-12}" text-anchor="middle">${v*100}%</text>`;
+  RULES.forEach((r,k)=>{
+    const P=PERIOD[r.id], y=top+k*row+row/2, c=P.d<-0.15?"var(--warn)":P.d>0.15?"var(--SE)":"var(--ink3)";
+    if(r.ctl)s+=`<rect x="0" y="${y-row/2+2}" width="${W}" height="${row-4}" fill="color-mix(in srgb,var(--ok) 9%,transparent)"/>`;
+    s+=`<g data-k="${k}" style="cursor:default"><rect x="0" y="${y-row/2}" width="${W}" height="${row}" fill="transparent"/>
+      <text x="${L-14}" y="${y+4}" text-anchor="end" style="font-family:'Source Serif 4',serif;font-size:14px;fill:var(--ink)">${r.claim.replace(/ \(among much else\)/,"")}</text>
+      <line x1="${x(P.ro)}" x2="${x(P.rn)}" y1="${y}" y2="${y}" stroke="${c}" stroke-width="3"/>
+      <circle cx="${x(P.ro)}" cy="${y}" r="6" fill="var(--panel)" stroke="var(--ink)" stroke-width="2"/>
+      <circle cx="${x(P.rn)}" cy="${y}" r="6" fill="${c==="var(--ink3)"?"var(--ink)":c}"/></g>`;
+  });
+  s+="</svg>";host.innerHTML=s;
+  const tip=document.getElementById("dbTip");
+  host.querySelectorAll("g[data-k]").forEach(g=>{const show=()=>{const r=RULES[+g.dataset.k],P=PERIOD[r.id];
+    tip.textContent=`${r.claim}: ${pct(P.ro)} of ${P.o} names on sale in 2022, ${pct(P.rn)} of ${P.n} launched since. Shuffling the two labels gives a gap this big ${P.p<0.001?"less than 1 time in 1,000":`${(P.p*100).toFixed(1)} times in 100`}. Ordinary Swedish words: ${pct(P.wo)} then, ${pct(P.wn)} since.`;};
+    g.addEventListener("mouseenter",show);g.addEventListener("click",show);});
+  document.getElementById("ctlVerdict").className="verdict "+(CTL_OK?"ok":"bad");
+  document.getElementById("ctlVerdict").textContent=CTL_OK?"Controls steady: the two rules nothing suggests changed held within ten points, and the instrument's false-alarm rate is the same for old and new names.":"A control drifted. Treat every gap on this chart as unverified.";
+  document.getElementById("ctlList").innerHTML=CTL.map(c=>`<li><b>${c.ok?"Steady.":"Drifted."}</b> ${c.txt}</li>`).join("")+
+    `<li>Measure B agrees where it can see. The share of rug names that are plain Swedish words went from ${pct(PERIOD.rugs.wo)} to ${pct(PERIOD.rugs.wn)}; desks from ${pct(PERIOD.desks.wo)} to ${pct(PERIOD.desks.wn)}. On curtains, beds and lighting it is silent: the new names there are compounds the dictionary does not hold.</li>
+     <li>A second, independently compiled gazetteer gives the same rug result: Wikidata calls ${pct(rate(cohortIdx(["rug"],false),B.DK_wd))} of the 2022 rugs and ${pct(rate(cohortIdx(["rug"],true),B.DK_wd))} of the new ones Danish places.</li>`;
+})();
+
+/* ---------- rugs by quarter ---------- */
+(function(){
+  const svg=document.getElementById("rugQ"), W=960, H=300, L=46, R=10, T=16, Bm=40;
+  const K=[["Danish place",i=>has(i,B.DK_P),"var(--DK)"],["other Nordic place",i=>has(i,B.SE_P|B.NO_P|B.FI_P),"var(--SE)"],["ordinary Swedish word",i=>has(i,B.word),"var(--WORD)"],["none of these",i=>true,"var(--NONE)"]];
+  const maxU=Math.max(...DATA.qurls), cols=[];
+  Q.forEach((q,qi)=>{const idx=[];for(let i=0;i<N;i++)if(catOf(i)==="rug"&&(IK.q[i]>>>qi&1))idx.push(i);
+    const parts=K.map(()=>0);for(const i of idx){for(let k=0;k<K.length;k++)if(K[k][1](i)){parts[k]++;break;}}
+    cols.push({q,n:idx.length,parts,thin:DATA.qurls[qi]<0.6*maxU});});
+  const bw=(W-L-R)/Q.length, y=v=>T+(H-T-Bm)*(1-v);
+  let s="";
+  for(const v of [0,.25,.5,.75,1])s+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--rule2)"/><text x="${L-6}" y="${y(v)+4}" text-anchor="end">${v*100}%</text>`;
+  cols.forEach((c,ci)=>{let acc=0;const x=L+ci*bw+3;
+    c.parts.forEach((p,k)=>{const f=c.n?p/c.n:0;s+=`<rect x="${x}" y="${y(acc+f)}" width="${bw-6}" height="${(H-T-Bm)*f}" fill="${K[k][2]}" opacity="${c.thin?0.45:1}"/>`;acc+=f;});
+    s+=`<text x="${x+(bw-6)/2}" y="${H-Bm+16}" text-anchor="middle">${c.q==="now"?"today":c.q.replace("Q"," Q")}</text><text x="${x+(bw-6)/2}" y="${H-Bm+30}" text-anchor="middle">${c.n}</text>
+      <rect data-c="${ci}" x="${x}" y="${T}" width="${bw-6}" height="${H-T-Bm}" fill="transparent"/>`;});
+  svg.innerHTML=s;
+  document.getElementById("rugLegend").innerHTML=K.map(k=>`<span><i style="background:${k[2]}"></i>${k[0]}</span>`).join("")+`<span>numbers under the bars: rug names on sale</span>`;
+  const tip=document.getElementById("rqTip");
+  svg.querySelectorAll("rect[data-c]").forEach(r=>{const show=()=>{const c=cols[+r.dataset.c];tip.textContent=`${c.q==="now"?"Today":c.q}: ${c.n} rug names on sale, ${c.parts[0]} Danish places (${c.n?pct(c.parts[0]/c.n):"–"})${c.thin?". Partly captured quarter.":"."}`;};
+    r.addEventListener("mouseenter",show);r.addEventListener("click",show);});
+})();
+
+/* ---------- rug robustness ---------- */
+(function(){
+  const o=cohortIdx(["rug"],false), n=cohortIdx(["rug"],true);
+  const dk=idx=>`${count(idx,B.DK_P)} of ${idx.length}`+(idx.length?` <span class="quiet">(${pct(rate(idx,B.DK_P))})</span>`:"");
+  const rows=[
+    ["As published",o,n],
+    ["Rugs proper, without names only ever sold as door mats",o.filter(i=>!has(i,B.mat)),n.filter(i=>!has(i,B.mat))],
+    ["Only names still on sale today",o.filter(live),n.filter(live)],
+    ["Only names no longer sold",o.filter(i=>!live(i)),n.filter(i=>!live(i))],
+    ["Danish places by Wikidata instead of GeoNames",null,null],
+  ];
+  let h=`<tr><th>Cut</th><th style="text-align:right">2022 range: Danish</th><th style="text-align:right">Launched since: Danish</th></tr>`;
+  for(const [lab,a,b] of rows){
+    if(!a){h+=`<tr><td>${lab}</td><td class="n">${count(o,B.DK_wd)} of ${o.length} <span class="quiet">(${pct(rate(o,B.DK_wd))})</span></td><td class="n">${count(n,B.DK_wd)} of ${n.length} <span class="quiet">(${pct(rate(n,B.DK_wd))})</span></td></tr>`;continue;}
+    h+=`<tr><td>${lab}</td><td class="n">${dk(a)}</td><td class="n">${dk(b)}</td></tr>`;
+  }
+  for(let c=1;c<DATA.cohorts.length;c++){
+    const idx=n.filter(i=>IK.coh[i]===c);
+    h+=`<tr><td>Launched in ${DATA.cohorts[c]}</td><td class="n">–</td><td class="n">${dk(idx)}</td></tr>`;
+  }
+  document.getElementById("robust").innerHTML=h;
+})();
+
+/* ---------- rug wall ---------- */
+(function(){
+  const chips=document.getElementById("rugChips"), wall=document.getElementById("rugWall");
+  const modes=[["2022 range",false],["launched since",true]]; let cur=1;
+  const kind=i=>has(i,B.DK_P)?"DK":has(i,B.SE_P)?"SE":has(i,B.NO_P)?"NO":has(i,B.FI_P)?"FI":has(i,B.word)?"WORD":"";
+  function draw(){
+    chips.innerHTML=modes.map((m,k)=>`<button class="chip" aria-pressed="${k===cur}" data-k="${k}">${m[0]}</button>`).join("");
+    chips.querySelectorAll("button").forEach(b=>b.onclick=()=>{cur=+b.dataset.k;draw();});
+    const idx=cohortIdx(["rug"],modes[cur][1]).sort((a,b)=>IK.name[a].localeCompare(IK.name[b],"sv"));
+    const gone=idx.filter(i=>!live(i)).length;
+    document.getElementById("rugChurn").textContent=modes[cur][1]
+      ?`${idx.length} rug names launched since January 2023; ${gone} of them have already gone again. Struck through: no longer sold.`
+      :`${idx.length} rug names on sale at some point in 2022; ${gone} of them are no longer sold.`;
+    wall.innerHTML=idx.map(i=>`<span class="k-${kind(i)}${live(i)?"":" gone"}" title="${IK.name[i]}${IK.theme[i]?" · kind of "+IK.theme[i]:""}">${IK.name[i]}</span>`).join("");
+  }
+  draw();
+})();
+
+/* ---------- calibration ---------- */
+(function(){
+  const sets=[["GeoNames, populated places",{SE:B.SE_P,NO:B.NO_P,DK:B.DK_P,FI:B.FI_P}],["GeoNames, any feature",{SE:B.SE_any,NO:B.NO_any,DK:B.DK_any,FI:B.FI_any}],["Wikidata settlements",{SE:B.SE_wd,NO:B.NO_wd,DK:B.DK_wd,FI:B.FI_wd}]];
+  const code={SE:4,NO:5,DK:6,FI:7};
+  const dr=(test,lab)=>{let n=0,h=0;for(let i=0;i<DI.name.length;i++)if(DI.lar5[i]===lab){n++;if(test(i))h++;}return [h,n];};
+  const fl=(i,b)=>(DI.flag[i]&b)!==0;
+  let h=`<tr><th>List</th><th style="text-align:right">SE</th><th style="text-align:right">NO</th><th style="text-align:right">DK</th><th style="text-align:right">FI</th><th style="text-align:right">Words wrongly a place</th></tr>`;
+  const res={};
+  for(const [lab,bits] of sets){
+    h+=`<tr><td>${lab}</td>`;
+    for(const cc of ["SE","NO","DK","FI"]){const [a,n]=dr(i=>fl(i,bits[cc]),code[cc]);h+=`<td class="n">${pct(a/n)}</td>`;res[lab+cc]=a/n;}
+    const any=bits.SE|bits.NO|bits.DK|bits.FI;const [a,n]=dr(i=>fl(i,any),1);
+    const [an,nn]=dr(i=>fl(i,bits.NO),1);res[lab+"NOfp"]=an/nn;
+    h+=`<td class="n">${pct(a/n)}</td></tr>`;
+  }
+  document.getElementById("calPlaces").innerHTML=h;
+  const cnt=k=>{let n=0;for(let i=0;i<DI.name.length;i++)if(DI.lar5[i]===code[k])n++;return n;};
+  document.getElementById("calNote").textContent=`Petrus's places: ${cnt("SE")} Swedish, ${cnt("NO")} Norwegian, ${cnt("DK")} Danish, ${cnt("FI")} Finnish. The Finnish row rests on very few names.`;
+  document.getElementById("noFP").textContent=pct(res["GeoNames, any featureNOfp"]);
+  document.getElementById("noFP2").textContent=pct(res["GeoNames, populated placesNOfp"]);
+  document.getElementById("wdSE").textContent=pct(res["Wikidata settlementsSE"]);
+  document.getElementById("wdDK").textContent=pct(res["Wikidata settlementsDK"]);
+
+  const STEPS=[2,5,10,20,50,100,200,500,1000,2000,5000,10000,20000];
+  const thr=document.getElementById("thr");thr.max=STEPS.length-1;thr.value=STEPS.indexOf(DATA.nameMin);
+  function names(){
+    const t=STEPS[+thr.value];document.getElementById("thrV").textContent=`${fmt(t)} bearers${t===DATA.nameMin?" (used)":""}`;
+    const male=i=>DI.men[i]>=t&&DI.men[i]>DI.women[i], fem=i=>DI.women[i]>=t&&DI.women[i]>DI.men[i];
+    const row=(lab,test,code)=>{const [a,n]=dr(test,code);return `<td class="n">${pct(a/n)}</td>`;};
+    document.getElementById("calNames").innerHTML=`<tr><th></th><th style="text-align:right">Boys' names caught</th><th style="text-align:right">Girls' names caught</th><th style="text-align:right">Words wrongly a name</th></tr>
+      <tr><td>men's register</td>${row("",male,2)}<td class="n">–</td>${row("",male,1)}</tr>
+      <tr><td>women's register</td><td class="n">–</td>${row("",fem,3)}${row("",fem,1)}</tr>`;
+  }
+  thr.oninput=names;names();
+})();
+
+/* ---------- explorer ---------- */
+(function(){
+  const inp=document.getElementById("q"), res=document.getElementById("res"), eg=document.getElementById("eg");
+  const norm=s=>s.toUpperCase().replace(/Ø/g,"Ö").replace(/Æ/g,"Ä").normalize("NFC");
+  const flat=s=>norm(s).replace(/Ä/g,"AE").replace(/Ö/g,"OE").replace(/Å/g,"A");
+  const KEY=IK.name.map(flat);
+  const TAGS=[["Swedish place",B.SE_P],["Norwegian place",B.NO_P],["Danish place",B.DK_P],["Finnish place",B.FI_P],["Wikidata: Swedish",B.SE_wd],["Wikidata: Norwegian",B.NO_wd],["Wikidata: Danish",B.DK_wd],["boy's name",B.boy],["girl's name",B.girl],["island",B.isl],["Swedish water",B.water],["Swedish word",B.word]];
+  function card(i){
+    const f=IK.flag[i], qs=Q.map((q,qi)=>`<i class="${IK.q[i]>>>qi&1?"on":""}" title="${q==="now"?"today":q}"></i>`).join("");
+    const people=IK.women[i]+IK.men[i]>0?` · ${fmt(IK.women[i])} Swedish women and ${fmt(IK.men[i])} men go by it`:"";
+    return `<div class="rcard"><h4>${IK.name[i]}${f&B.guess?"*":""}</h4>
+      <div class="meta">${CATLAB[catOf(i)]} · ${DATA.cohorts[IK.coh[i]]==="2022"?"on sale in 2022":"first seen "+DATA.cohorts[IK.coh[i]]} · ${live(i)?"on sale today":"no longer sold"}${people}</div>
+      <div class="meta">2010 dictionary: ${LAR[IK.lar5[i]]}${IK.theme[i]?` · the dictionary files it as a kind of ${IK.theme[i].toUpperCase()}`:""}</div>
+      <div class="tags">${TAGS.map(([l,b])=>`<span class="${f&b?"on":""}">${f&b?"✓ ":"· "}${l}</span>`).join("")}</div>
+      <div class="qstrip" aria-label="quarters on sale">${qs}</div></div>`;
+  }
+  function run(){
+    const s=flat(inp.value.trim());
+    if(s.length<2){res.innerHTML=`<p class="quiet">Type at least two letters.</p>`;return;}
+    const hits=[];for(let i=0;i<N;i++){if(KEY[i]===s)hits.unshift(i);else if(KEY[i].startsWith(s))hits.push(i);}
+    res.innerHTML=hits.length?hits.slice(0,8).map(card).join("")+(hits.length>8?`<p class="quiet">${hits.length-8} more; keep typing.</p>`:""):`<p class="quiet">No IKEA name in Britain since July 2022 starts with that.</p>`;
+  }
+  inp.addEventListener("input",run);
+  eg.innerHTML=["MALM","HEMNES","TOFTLUND","JÄRNVÄG","MATILDA","FORSAND","SCHOTTIS"].map(n=>`<button class="chip" aria-pressed="false">${n}</button>`).join("");
+  eg.querySelectorAll("button").forEach(b=>b.onclick=()=>{inp.value=b.textContent;run();});
+})();
+
+/* ---------- instrument sizes ---------- */
+</script>
+</body>
+</html>
